@@ -1,5 +1,12 @@
 terraform {
   required_version = "1.11.4"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.97.0"
+    }
+  }
+
   backend "s3" {
     bucket  = "kdg-aws-2025-yokota"
     key     = "tfstate/aws.tfstate"
