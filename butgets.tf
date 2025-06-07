@@ -10,7 +10,7 @@ resource "aws_budgets_budget" "monthly_budget" {
     threshold                  = 5
     threshold_type             = "ABSOLUTE_VALUE"
     notification_type          = "ACTUAL"
-    subscriber_email_addresses = ["opus5595@gmail.com"]
+    subscriber_email_addresses = ["opus@opus"]
     subscriber_sns_topic_arns  = [aws_sns_topic.budget_alerts.arn]
   }
 }
@@ -22,5 +22,5 @@ resource "aws_sns_topic" "budget_alerts" {
 resource "aws_sns_topic_subscription" "email_subscription" {
   topic_arn = aws_sns_topic.budget_alerts.arn
   protocol  = "email"
-  endpoint  = "opus5595@gmail.com"
+  endpoint  = "opus@opus"
 }
