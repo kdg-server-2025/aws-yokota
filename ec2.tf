@@ -15,28 +15,19 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-variable "ssh_key" {
-  description = "EC2 SSH Key"
-  type        = string
-}
+# 課金が発生するためコメントアウト
+# resource "aws_instance" "kdg-aws-20250621" {
+#   ami = data.aws_ami.ubuntu.id
+#   # AWS の無力枠を使いたいため t3.micro を使う
+#   instance_type = "t3.micro"
 
-# key 名は任意の名前で良い。GitHub の key と同じように作業しているPCの名前がおすすめ
-resource "aws_key_pair" "opus_win_20250621" {
-  key_name   = "opus-win-20250621"
-  public_key = var.ssh_key
-}
+#   tags = {
+#     Name     = "kdg-aws-20250621",
+#     UserDate = "true"
+#   }
 
-resource "aws_instance" "kdg-aws-20250621" {
-  ami = data.aws_ami.ubuntu.id
-  # AWS の無力枠を使いたいため t3.micro を使う
-  instance_type = "t3.micro"
+#   vpc_security_group_ids = [aws_security_group.ssh_enable.id]
 
-  tags = {
-    Name     = "kdg-aws-20250621",
-    UserDate = "true"
-  }
-
-  vpc_security_group_ids = [aws_security_group.ssh_enable.id]
-
-  key_name = aws_key_pair.opus_win_20250621.id
-}
+#   user_data_replace_on_change = true
+#   user_data                   = file("./update_sshkeys.sh")
+# }
